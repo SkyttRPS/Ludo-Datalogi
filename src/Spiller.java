@@ -20,29 +20,29 @@ public class Spiller {
 
     // Metode til at printe en spillers information
     public void printSpillerInfo(){
-        System.out.println("Farve: " + fåFarve());
-        System.out.println("Start position: " + fåStartPosition());
-        System.out.println("Ny position: " + fåNyPosition());
+        System.out.println("Farve: " + getFarve());
+        System.out.println("Start position: " + getStartPosition());
+        System.out.println("Ny position: " + getNyPosition());
     }
 
     // Getters og setters
-    public String fåFarve() {
+    public String getFarve() {
         return farve;
     }
 
-    public int fåStartPosition() {
+    public int getStartPosition() {
         return startPosition;
     }
 
-    public int fåNyPosition() {
+    public int getNyPosition() {
         return nyPosition;
     }
 
-    public int sætStartPosition() {
-        return startPosition;
+    public int setStartPosition(int startPos) {
+        startPosition = startPos;
     }
 
-    public int sætNyPosition() {
-        return nyPosition;
+    public int setNyPosition(int nyPos) {
+        nyPosition = nyPos;
     }
 }
