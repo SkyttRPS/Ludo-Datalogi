@@ -40,9 +40,11 @@ public class Spiller {
 
     public int setStartPosition(int startPos) {
         startPosition = startPos;
+        return startPosition;
     }
 
     public int setNyPosition(int nyPos) {
         nyPosition = nyPos;
+        return nyPosition;
     }
 }
