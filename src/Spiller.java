@@ -18,12 +18,14 @@ public class Spiller {
         this.nyPosition = nyPosition;
     }
 
-    public void printDetaljer(){
+    // Metode til at printe en spillers information
+    public void printSpillerInfo(){
         System.out.println("Farve: " + fåFarve());
         System.out.println("Start position: " + fåStartPosition());
         System.out.println("Ny position: " + fåNyPosition());
     }
 
+    // Getters og setters
     public String fåFarve() {
         return farve;
     }
