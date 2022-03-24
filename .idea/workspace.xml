@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="946f98f1-54b6-4c2a-b451-9244a233d1a2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Brik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Brik.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +38,7 @@
       <updated>1648099495654</updated>
       <workItem from="1648099500897" duration="2955000" />
       <workItem from="1648108713666" duration="1993000" />
-      <workItem from="1648118453253" duration="50000" />
+      <workItem from="1648118453253" duration="1457000" />
     </task>
     <servers />
   </component>

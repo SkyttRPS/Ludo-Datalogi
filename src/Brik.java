@@ -1,4 +1,5 @@
 public class Brik {
+    private String farve;
 
     public String getFarve() {
         return farve;
@@ -8,7 +9,7 @@ public class Brik {
         this.farve = farve;
     }
 
-    private String farve;
+
 
 
 
