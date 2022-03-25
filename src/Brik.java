@@ -9,8 +9,4 @@ public class Brik {
         this.farve = farve;
     }
 
-
-
-
-
 }
