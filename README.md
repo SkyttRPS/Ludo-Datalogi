@@ -3,7 +3,7 @@ Implementation af brætspillet Ludo i Java.
 
 Ludo er et klassisk brætspil for 2-4 spillere der skal dyste om først at få alle spillerens 4 brikker rundt på brættet og i mål. 
 
-Vores mål er at implementere en version af ludo der skalerbar til forskellige regelsæt, antal spillere og sjove funktioner som ekstra antal brikker etc.
+Vores mål er at implementere en version af ludo der er skalerbar til forskellige regelsæt, antal spillere og sjove funktioner fx. ekstra antal brikker pr. spiller etc.
 
 
 ### **Designkrav**
@@ -17,7 +17,7 @@ Vores mål er at implementere en version af ludo der skalerbar til forskellige r
 - Flytbare brikker
 
 **BØR Have:**
-- Søge algoritme, til at få informationer om forhold til andre positioner
+- Søgealgoritme, til at få informationer om forhold til andre positioner
 - Sikkerhedsfelter (zoner)
 - Globusfelter
 - Stjernefelter
@@ -25,7 +25,7 @@ Vores mål er at implementere en version af ludo der skalerbar til forskellige r
 **KAN Have:**
 - GUI
 - 4-16 spillere (chaos)
-- 4+ brikker?
+- 4+ brikker (pr. spiller)?
 
 **VIL IKKE Have:**
 - Online multiplayer
