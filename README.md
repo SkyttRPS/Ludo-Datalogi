@@ -21,6 +21,7 @@ Vores mål er at implementere en version af ludo der er skalerbar til forskellig
 - Sikkerhedsfelter (zoner)
 - Globusfelter
 - Stjernefelter
+- Unit test
 
 **KAN Have:**
 - GUI
