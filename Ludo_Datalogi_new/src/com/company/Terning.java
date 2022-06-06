@@ -1,21 +1,28 @@
 package com.company;
-import java.util.Random;
+import java.util.Random; // Importerer Java's random klasse
 
 public class Terning {
+    // Opret variabler
     int ojne;
     boolean gyldigtrul;
     int rulvardi;
 
+    // Klasse constructor
     public Terning(int aOjne) { this.ojne = aOjne; }
 
+    // Metode til at rulle med terningen
     public void rul(){
-        Random random = new Random();
-        rulvardi = random.nextInt(ojne+1);
+        Random random = new Random(); // lav random objekt
+        rulvardi = random.nextInt(ojne+1); // +1 for at undgå at rulle 0
+
+        // Dobbel sikring at terningen ikke ruller 0, hvis det er tilfældet sættes gyldigt rul til false
         if (rulvardi == 0){
             gyldigtrul = false;
         } else {
             gyldigtrul = true;
         }
+
+        // Tjek om rullet er en normal værdi, globus eller stjerne og prompter hvad man har slået
         if (gyldigtrul){
             if (rulvardi != 5 && rulvardi != 3){
                 System.out.println("Du har slaet en " + rulvardi);
@@ -26,10 +33,11 @@ public class Terning {
                 System.out.println("Du har slaet en stjerne!");
             }
         } else {
-            rul();
+            rul(); // Slå igen hvis slaget ikke er gyldigt
         }
     }
 
+    // Get rul værdi
     public int addRul(){
         int merRul = 0;
         if (gyldigtrul){
@@ -41,6 +49,7 @@ public class Terning {
         }
     }
 
+    // Tjekker ja eller nej om rul er en globus
     public boolean globustjek(){
         if (rulvardi == 5){
             return true;
@@ -49,6 +58,7 @@ public class Terning {
         }
     }
 
+    // Tjekker ja eller nej om rul er en stjerne
     public boolean stjernetjek(){
         if (rulvardi == 3){
             return true;
