@@ -1,4 +1,4 @@
-# Ludoz-Datalogi
+# Ludo Datalogi
 Implementation af brætspillet Ludo i Java.
 
 Ludo er et klassisk brætspil for 2-4 spillere der skal dyste om først at få alle spillerens 4 brikker rundt på brættet og i mål. 
@@ -12,13 +12,13 @@ Vores mål er at implementere en version af ludo der er skalerbar til forskellig
 - 4 spillere
 - Point tæller
 - Køres gennem java konsollen
-- 76 felter
+- 76 felter 
 - Funktionel terning
 - Flytbare brikker
 
 **BØR Have:**
-- Søgealgoritme, til at få informationer om forhold til andre positioner
-- Sikkerhedsfelter (zoner)
+- Simpel Søgealgoritme, til at opdatere om brikkernes positioner
+- Sikkerhedsfelter (målzone)
 - Globusfelter
 - Stjernefelter
 - Unit test
@@ -26,7 +26,7 @@ Vores mål er at implementere en version af ludo der er skalerbar til forskellig
 **KAN Have:**
 - GUI
 - 4-16 spillere (chaos)
-- 4+ brikker (pr. spiller)?
+- 4+ brikker (pr. spiller)
 
 **VIL IKKE Have:**
 - Online multiplayer
