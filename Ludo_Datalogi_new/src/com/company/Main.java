@@ -1,5 +1,6 @@
 package com.company;
-import java.util.Scanner; // Import Java's Scanner class for user input
+import java.util.Scanner; // Importer Java's Scanner klasse
+import java.util.Random; // Importer Java's Random klasse
 
 class SpilController {
     // Opret variabler
@@ -115,6 +116,7 @@ public class Main {
         SpilController spil = new SpilController();
         Scanner scan = new Scanner(System.in);
         int turTaeller = 1;
+        String mode = setup();
         spil.hvisTur(turTaeller);
         String tekst = scan.nextLine();
 
@@ -126,25 +128,25 @@ public class Main {
                 if (spil.harVundet(turTaeller)){
                     System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
-                    turTaeller = getTurTaeller(spil ,turTaeller,tekst);
+                    turTaeller = getTurTaeller(spil ,turTaeller,tekst, mode);
                 }
             } else if (turTaeller == 2){
                 if (spil.harVundet(turTaeller)){
                     System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
-                    turTaeller = getTurTaeller(spil ,turTaeller,tekst);
+                    turTaeller = getTurTaeller(spil ,turTaeller,tekst, mode);
                 }
             } else if (turTaeller == 3){
                 if (spil.harVundet(turTaeller)){
                     System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
-                    turTaeller = getTurTaeller(spil ,turTaeller,tekst);
+                    turTaeller = getTurTaeller(spil ,turTaeller,tekst, mode);
                 }
             } else if (turTaeller ==4){
                 if (spil.harVundet(turTaeller)){
                     System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
-                    turTaeller = getTurTaeller(spil ,turTaeller,tekst);
+                    turTaeller = getTurTaeller(spil ,turTaeller,tekst, mode);
                 }
             } else {
                 System.out.println("Der er sket en fejl");
@@ -154,9 +156,27 @@ public class Main {
         }
     }
 
+    // Funktion til at definere spiltilstand, for at spille mod computeren eller med andre
+    static String setup() {
+        System.out.println("Skriv single for at spille mod computeren, alt andet for at spille med venner");
+
+        // Input og tekst variabel
+        Scanner s = new Scanner(System.in);
+        String tekst = s.nextLine();
+
+        // Tjek om input er single eller alt andet for multi
+        if(tekst.trim().equalsIgnoreCase("single")) {
+            return "single";
+        } else {
+            return "multi";
+        }
+    }
+
     // Opdaterer turen
-    private static int getTurTaeller(SpilController spil , int turTaeller, String tekst){
+    private static int getTurTaeller(SpilController spil , int turTaeller, String tekst, String mode){
         int brik = 0;
+        Random r = new Random();
+        System.out.println("Spiltilstand: " + mode);
 
         // Stiller krav til at et input skal være specifikt før der kan slås med terningen
         if (tekst.trim().equalsIgnoreCase("r")){
@@ -168,21 +188,32 @@ public class Main {
             }
             System.out.println("\n");
             System.out.println("Vælg brik med et tal mellem 1-4");
-        if (turTaeller == 1) {
-            
-        } else {
 
-        }
-
-
-            // Prøver at køre vælgbrik metoden
-            try{
-                brik = spil.vaelgBrik();
-            } catch (Exception ex) {
-                // Fanger hvis inputtet ikke er et tal
-                System.out.println("Du skrev ikke et tal");
+            // Switch case til at vælge om man vil automatisere spiller 2-4's valg af brikker
+            switch (mode) {
+                case "single":
+                    if (turTaeller == 1) {
+                        try {
+                            brik = spil.vaelgBrik();
+                        } catch (Exception ex) {
+                            // Fanger hvis inputtet ikke er et tal
+                            System.out.println("Du skrev ikke et tal");
+                        }
+                    } else {
+                        brik = r.nextInt(4+1);
+                    }
+                    break;
+                case "multi":
+                    try {
+                        brik = spil.vaelgBrik();
+                    } catch (Exception ex) {
+                        // Fanger hvis inputtet ikke er et tal
+                        System.out.println("Du skrev ikke et tal");
+                    }
+                    break;
             }
 
+            // Varibel til at få en brik's lokation
             int lokation = spil.spillere.sp.get(turTaeller-1).brikker.get(brik-1).getLokation();
 
             // Fjerner en valgt brik fra et felt
@@ -211,7 +242,7 @@ public class Main {
             if (spil.terning.globustjek()){
                 // Fortæller at der skal vælges en brik
                 System.out.println("Du har slaet en globus og ruller terningen igen, skriv et tal mellem 1-4");
-                getTurTaeller(spil ,turTaeller,tekst);
+                getTurTaeller(spil ,turTaeller,tekst, mode);
             }
 
             // Fortæller at turen går ver til næste spiller

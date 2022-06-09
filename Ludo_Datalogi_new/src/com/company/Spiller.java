@@ -72,11 +72,7 @@ public class Spiller {
                 spillerfarve = "gul";
                 break;
         }
-
-        /* if (spillernummer==1) spillerfarve = "roed";
-        if (spillernummer==2) spillerfarve = "blae";
-        if (spillernummer==3) spillerfarve = "groen";
-        if (spillernummer==4) spillerfarve = "gul"; */
+        
         for (int i =1;i<5;i++){
             brikker.add(new Brik(i,spillerfarve));
         }
