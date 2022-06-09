@@ -22,47 +22,55 @@ class SpilController {
 
     // Metode til at rykke brik
     void rykBrik(int spillerNR, int brikNR){
+        Brik brikRyk = spillere.sp.get(spillerNR-1).brikker.get(brikNR-1);
+
         // Fortæller hvilken brik og hvilket felt der rykkes fra
-        System.out.println("Rykker brik " + spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getBrikID() + " fra felt " + spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getLokation());
+        System.out.println("Rykker brik " + brikRyk.getBrikID() + " fra felt " + brikRyk.getLokation());
         // Tjekker om der er slået en globus, finder og rykker til næste globus
         if (terning.globustjek()){
-            spillere.list.get(spillerNR-1).brikker.get(brikNR-1).setFeltSituation(board.list.get(spillerNR).findNaesteGlobus(spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getLokation()));
+            brikRyk.setFeltSituation(board.list.get(spillerNR).findNaesteGlobus(brikRyk.getLokation()));
         // Tjekker om der er slået en stjerne, finder og rykker til næste stjerne
         } else if (terning.stjernetjek()){
             //
-            if (board.list.get(spillerNR).findNaesteStjerne(spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getLokation()) == 0) return;
-            spillere.list.get(spillerNR-1).brikker.get(brikNR-1).setFeltSituation(board.list.get(spillerNR).findNaesteStjerne(spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getLokation()));
+            if (board.list.get(spillerNR).findNaesteStjerne(brikRyk.getLokation()) == 0) return;
+            brikRyk.setFeltSituation(board.list.get(spillerNR).findNaesteStjerne(brikRyk.getLokation()));
         // Hvis det ikke er tilfældet rykkes med terningens antal øjne
         } else {
-            spillere.list.get(spillerNR-1).brikker.get(brikNR-1).setFelt(terning.addRul());
+            brikRyk.setFelt(terning.addRul());
         }
         // Fortæller til hvilket felt der rykkes
-        System.out.println(" til felt " + spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getLokation());
+        System.out.println(" til felt " + brikRyk.getLokation());
     }
 
     // Metode til at hoppe videre hvis der landes på en stjerne
     void rykBrikStjerneSituation(int spillerNR, int brikNR){
-        if (board.list.get(spillerNR).findNaesteStjerne(spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getLokation()) == 0) return;
-        spillere.list.get(spillerNR-1).brikker.get(brikNR-1).setFeltSituation(board.list.get(spillerNR).findNaesteStjerne(spillere.list.get(spillerNR-1).brikker.get(brikNR-1).getLokation()));
+        Brik brikRyk = spillere.sp.get(spillerNR-1).brikker.get(brikNR-1);
+
+        if (board.list.get(spillerNR).findNaesteStjerne(brikRyk.getLokation()) == 0) return;
+        brikRyk.setFeltSituation(board.list.get(spillerNR).findNaesteStjerne(brikRyk.getLokation()));
     }
 
     // Opdaterer alle situationer på et felt
     void opdaterFelt(int feltNR, int spillerNR,int brikID){
+        Felt plads = board.list.get(feltNR-1);
+        int usikkerBrik = spillere.sp.get(plads.getSpillerPaaFelt()).brikker.get(brikID-1).getBrikID();
+        int sikkerBrik = spillere.sp.get(spillerNR-1).brikker.get(brikID-1).getBrikID();
+
         // Tjekker om der er en brik på feltet og feltets type
-        if (board.list.get(feltNR-1).tjekBrik()){
+        if (plads.tjekBrik()){
             // Tjekker om feltet er en globus
-            if (board.list.get(feltNR-1).erFeltSikkert(feltNR)){
-                System.out.println("Du ramte en globus hvor der allerede staer en brik bliver slaet hjem til foerste felt!");
+            if (plads.erFeltSikkert(feltNR)){
+                System.out.println("Du ramte en globus hvor " + plads.getSpillerPaaFelt() + " staar, din brik bliver slaet hjem til foerste felt!");
                 // Slår spilleren som lander på feltet hjem
-                spillere.slaaHjem(board.list.get(feltNR-1).getSpillerPaaFelt(),spillere.list.get(board.list.get(feltNR-1).getSpillerPaaFelt()).brikker.get(brikID-1).getBrikID());
+                spillere.slaaHjem(plads.getSpillerPaaFelt(), usikkerBrik);
             } else {
                 // Slår spilleren der er på feltet hjem
-                spillere.slaaHjem(spillerNR,spillere.list.get(spillerNR-1).brikker.get(brikID-1).getBrikID());
-                System.out.println("Du har slået brikID hjem til foerste felt -Wuuhuu- ");
+                spillere.slaaHjem(spillerNR, sikkerBrik);
+                System.out.println("Du har slået " + spillere.spillerensFarve(spillerNR) + " hjem til foerste felt -Wuuhuu- ");
             }
         // Sætter brik på felt
         } else {
-            board.setFeltOptaget(spillere.list.get(spillerNR-1).brikker.get(brikID-1).getLokation(),spillerNR);
+            board.setFeltOptaget(spillere.sp.get(spillerNR-1).brikker.get(brikID-1).getLokation(),spillerNR);
         }
     }
 
@@ -74,10 +82,10 @@ class SpilController {
     // Metode til at tjekke om en spiller har vundet
     public boolean harVundet(int spillerNR){
         //  Tjekker om all en spillers fire brikker i mål
-        return spillere.list.get(spillerNR - 1).brikker.get(0).brikIMael()
-                && spillere.list.get(spillerNR - 1).brikker.get(1).brikIMael()
-                && spillere.list.get(spillerNR - 1).brikker.get(2).brikIMael()
-                && spillere.list.get(spillerNR - 1).brikker.get(3).brikIMael();
+        return spillere.sp.get(spillerNR - 1).brikker.get(0).brikIMael()
+                && spillere.sp.get(spillerNR - 1).brikker.get(1).brikIMael()
+                && spillere.sp.get(spillerNR - 1).brikker.get(2).brikIMael()
+                && spillere.sp.get(spillerNR - 1).brikker.get(3).brikIMael();
     }
 
     // Metode til at vælge en brik
@@ -112,27 +120,29 @@ public class Main {
 
         // While loop der kører til spillet er "slukket"
         while (!tekst.trim().equalsIgnoreCase("sluk")){
+            String farve = spil.spillere.spillerensFarve(turTaeller);
+
             if (turTaeller==1){
                 if (spil.harVundet(turTaeller)){
-                    System.out.println(spil.spillere.spillerensFarve(turTaeller) + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
+                    System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
                     turTaeller = getTurTaeller(spil ,turTaeller,tekst);
                 }
             } else if (turTaeller == 2){
                 if (spil.harVundet(turTaeller)){
-                    System.out.println(spil.spillere.spillerensFarve(turTaeller) + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
+                    System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
                     turTaeller = getTurTaeller(spil ,turTaeller,tekst);
                 }
             } else if (turTaeller == 3){
                 if (spil.harVundet(turTaeller)){
-                    System.out.println(spil.spillere.spillerensFarve(turTaeller) + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
+                    System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
                     turTaeller = getTurTaeller(spil ,turTaeller,tekst);
                 }
             } else if (turTaeller ==4){
                 if (spil.harVundet(turTaeller)){
-                    System.out.println(spil.spillere.spillerensFarve(turTaeller) + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
+                    System.out.println(farve + " har vundet, skriv venligst 'sluk' for at stoppe spillet");
                 } else {
                     turTaeller = getTurTaeller(spil ,turTaeller,tekst);
                 }
@@ -152,12 +162,18 @@ public class Main {
         if (tekst.trim().equalsIgnoreCase("r")){
             // Printer alle brikkers placering
             for (int i=0;i<4;i++){
-                System.out.println(spil.spillere.list.get(i).getSpillerfarve() + " Brikker er på følgene felter:");
-                spil.spillere.list.get(i).hvorErBrikker();
+                System.out.println(spil.spillere.sp.get(i).getSpillerfarve() + " Brikker er på følgene felter:");
+                spil.spillere.sp.get(i).hvorErBrikker();
                 System.out.println(" ");
             }
             System.out.println("\n");
             System.out.println("Vælg brik med et tal mellem 1-4");
+        if (turTaeller == 1) {
+            
+        } else {
+
+        }
+
 
             // Prøver at køre vælgbrik metoden
             try{
@@ -166,26 +182,29 @@ public class Main {
                 // Fanger hvis inputtet ikke er et tal
                 System.out.println("Du skrev ikke et tal");
             }
+
+            int lokation = spil.spillere.sp.get(turTaeller-1).brikker.get(brik-1).getLokation();
+
             // Fjerner en valgt brik fra et felt
-            if (spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation() != 0) {
-                spil.forladFelt(spil.spillere.list.get(turTaeller - 1).brikker.get(brik - 1).getLokation());
+            if (lokation != 0) {
+                spil.forladFelt(lokation);
             }
             // Rykker brikken
             spil.rykBrik(turTaeller,brik);
 
             // Opdaterer feltet
-            if (spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation() != 0) spil.opdaterFelt(spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation(),turTaeller,brik);
+            if (lokation != 0) spil.opdaterFelt(lokation,turTaeller,brik);
 
             // Tjekker om slaget ikke er en stjerne
             if (!spil.terning.stjernetjek()){
                 // Tjekker om feltet der landes på er en stjerne
-                if (spil.board.list.get(spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation()).erStjerne(spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation())){
+                if (spil.board.list.get(lokation).erStjerne(lokation)){
                     // Forlader feltet
-                    if (spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation() != 0) spil.forladFelt(spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation());
+                    if (lokation != 0) spil.forladFelt(lokation);
                     // Rykker
                     spil.rykBrikStjerneSituation(turTaeller,brik);
                     // Opdaterer nyt felt
-                    if (spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation() != 0) spil.opdaterFelt(spil.spillere.list.get(turTaeller-1).brikker.get(brik-1).getLokation(),turTaeller,brik);
+                    if (lokation != 0) spil.opdaterFelt(lokation,turTaeller,brik);
                 }
             }
             // Tjekker om slaget er en globus

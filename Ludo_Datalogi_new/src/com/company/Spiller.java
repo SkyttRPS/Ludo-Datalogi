@@ -95,23 +95,26 @@ public class Spiller {
 
 // Klasse til at lave spillerne
 class LavSpillere{
-    List<Spiller> list = new ArrayList<>(); // ArrayList til at holde spiller objekter
+    List<Spiller> sp = new ArrayList<>(); // ArrayList til at holde spiller objekter
 
     // LavSpillere constructor
     public LavSpillere(){
         for (int i =1;i<5;i++){
-            list.add(new Spiller(i));
+            sp.add(new Spiller(i));
         }
     }
 
     // Getter for spillerens farve
     public String spillerensFarve(int spillerNR){
-        String spillerensFarve = list.get(spillerNR-1).getSpillerfarve();
+        String spillerensFarve = sp.get(spillerNR-1).getSpillerfarve();
         return spillerensFarve;
     }
 
     // Metode til at slå en brik hjem
     public void slaaHjem(int spillerNR, int brikID){
-        list.get(spillerNR-1).brikker.get(brikID-1).setFeltSituation(0);
+        Spiller s = sp.get(spillerNR-1);
+        Brik b = s.brikker.get(brikID-1); // (brikID-1)
+        b.setFeltSituation(0);
+        // list.get(spillerNR-1).brikker.get(brikID-1).setFeltSituation(0);
     }
 }
