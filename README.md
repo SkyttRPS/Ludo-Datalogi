@@ -18,14 +18,15 @@ Vores mål er at implementere en version af ludo der er skalerbar til forskellig
 
 **BØR Have:**
 - Simpel Søgealgoritme, til at opdatere om brikkernes positioner
-- Sikkerhedsfelter (målzone)
 - Globusfelter
 - Stjernefelter
-- Unit test
 
 **KAN Have:**
 - GUI
 - 4-16 spillere (chaos)
+- Sikkerhedsfelter (målzone)
+- AI (spil mod computeren)
+- Unit test
 - 4+ brikker (pr. spiller)
 
 **VIL IKKE Have:**
