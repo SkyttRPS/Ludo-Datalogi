@@ -4,29 +4,29 @@ import java.util.List; // Importer Java's List interface
 
 public class Spiller {
     // Opret variabler
-    int spillernummer;
-    String spillerfarve;
+    int spillerNummer;
+    String spillerFarve;
     //int spillerPoint;
     List<Brik> brikker = new ArrayList<>(); // Opret en ArrayList med brikker
 
     // Spiller constructor
     public Spiller(int spillerNR){
-        this.spillernummer = spillerNR;
+        this.spillerNummer = spillerNR;
         // Tildel farve til hvert spillernummer
-        switch (spillernummer) {
-            case 1 -> spillerfarve = "rød";
-            case 2 -> spillerfarve = "blå";
-            case 3 -> spillerfarve = "grøn";
-            case 4 -> spillerfarve = "gul";
+        switch (spillerNummer) {
+            case 1 -> spillerFarve = "rød";
+            case 2 -> spillerFarve = "blå";
+            case 3 -> spillerFarve = "grøn";
+            case 4 -> spillerFarve = "gul";
         }
         
         for (int i =1;i<5;i++){
-            brikker.add(new Brik(i,spillerfarve));
+            brikker.add(new Brik(i, spillerFarve));
         }
     }
 
     // Getter metode til at returnere spillerfarve
-    public String getSpillerfarve() {return spillerfarve;}
+    public String getSpillerFarve() {return spillerFarve;}
 
     // Tjekker hvor alle en spillers fire brikker er placeret
     public void hvorErBrikker(){

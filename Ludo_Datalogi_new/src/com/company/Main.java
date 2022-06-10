@@ -76,7 +76,7 @@ public class Main {
         if (tekst.trim().equalsIgnoreCase("r")){
             // Printer alle brikkers placering
             for (int i=0;i<4;i++){
-                System.out.println(spil.spillere.sp.get(i).getSpillerfarve() + " Brikker er på følgende felter:");
+                System.out.println(spil.spillere.sp.get(i).getSpillerFarve() + " Brikker er på følgende felter:");
                 spil.spillere.sp.get(i).hvorErBrikker();
                 System.out.println(" ");
             }

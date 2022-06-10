@@ -16,7 +16,7 @@ class SpillerModul {
 
     // Getter for spillerens farve
     public String spillerensFarve(int spillerNR){
-        String spillerensFarve = sp.get(spillerNR-1).getSpillerfarve();
+        String spillerensFarve = sp.get(spillerNR-1).getSpillerFarve();
         return spillerensFarve;
     }
 
