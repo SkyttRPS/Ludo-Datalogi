@@ -7,7 +7,7 @@ class Brik{
     private final String FARVE; // Tiltænkt at bruges til eventuel GUI
     public boolean iMål;
 
-    // Brik klasse contructor
+    // Brik klasse constructor
     public Brik(int bID, String farveID){
         this.BRIK_ID =bID;
         this.FARVE = farveID;
