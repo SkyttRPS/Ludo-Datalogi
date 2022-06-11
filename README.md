@@ -5,6 +5,9 @@ Ludo er et klassisk brætspil for 2-4 spillere der skal dyste om først at få a
 
 Vores mål er at implementere en version af ludo der er skalerbar til forskellige regelsæt, antal spillere og sjove funktioner fx. ekstra antal brikker pr. spiller etc.
 
+## **Vejledning**
+Programmet skal klones ned lokalt og køres gennem java konsollen fx. i brugerens egen IDE. 
+IntelliJ Idea er brugt i udviklingen.
 
 ### **Designkrav**
 
