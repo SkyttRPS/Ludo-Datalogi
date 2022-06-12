@@ -36,4 +36,3 @@ IntelliJ Idea er brugt i udviklingen.
 - Online multiplayer
 - 3D Grafik
 - Lyd
-- AI (spil mod computeren)
