@@ -1,30 +1,27 @@
 package com.company;
-
 public class Felt {
     // Opret variabler
     int feltNR;
     int[] stjerner = {5,11,18,24,31,37,44,50,57,63,70};
     int[] globus = {8,13,21,26,34,39,47,52,60,65,73};
     int spillerPåFelt;
+    int brikPåFelt;
     boolean optaget = false;
-
     // Felt klasse constructor
     public Felt(int feltX){
         this.feltNR = feltX;
     }
     //public int getFeltNR() {return feltNR;}
-
     // Getter metode til at tjekke om der er en brik på feltet
     public int getSpillerPåFelt() {
         return spillerPåFelt;
     }
-
     // Setter metode til at placere brik på et felt
-    public void setOptaget(boolean optaget, int spillerNR){
+    public void setOptaget(boolean optaget, int spillerNR, int brikID){
         this.optaget = optaget;
         this.spillerPåFelt = spillerNR;
+        this.brikPåFelt = brikID;
     }
-
     // Tjek om der en brik eller om feltet er ledigt
     public boolean tjekBrik(){
         if (optaget){
@@ -36,7 +33,6 @@ public class Felt {
             return false;
         }
     }
-
     // Søg efter næste globus fra et givent felt
     public int findNæsteGlobus(int felt){
         if (felt < 70){
@@ -48,17 +44,14 @@ public class Felt {
                 } else if (felt < globus[j]){ // Tjek om felt ikke er en globus
                     System.out.println("Du har slået en globus og rykker til " + globus[j]);
                     return globus[j];
-                } else {
-                    System.out.print(" ");
                 }
             }
         }
-        return 0;
+        return felt;
     }
-
     // Søg efter næste stjerne fra et givent felt
     public int findNæsteStjerne(int felt){
-        if (felt < 75){
+        if (felt <= 69){
             for (int j =0; j<stjerner.length; j++){
                 // Tjek først om felt allerede er en stjerne
                 if (felt==stjerner[j]){
@@ -67,14 +60,11 @@ public class Felt {
                 } else if (felt<stjerner[j]){ // Tjek om felt ikke er en stjerne
                     System.out.println("Du har slået en stjerne og rykker til " + stjerner[j]);
                     return stjerner[j];
-                } else {
-                    System.out.print(" ");
                 }
             }
         }
-        return 0;
+        return felt;
     }
-
     // Tjek om et felt der er landet på er en globus
     public boolean erGlobus(int feltNR){
         if (feltNR < 74){
@@ -87,7 +77,6 @@ public class Felt {
         }
         return false;
     }
-
     // Tjek om et felt der er landet på er en stjerne
     public boolean erStjerne(int feltNR){
         if (feltNR < 74){
@@ -101,12 +90,14 @@ public class Felt {
         }
         return false;
     }
-
     // Tjek om et felt er sikkert ved at tjekke om det er en globus
     public boolean erFeltSikkert(int feltNR){
         if (erGlobus(feltNR)){
             return true;
         }
         return false;
+    }
+    public void yell(){
+        System.out.println("Den brik som er på feltet tilhører: " + spillerPåFelt);
     }
 }
